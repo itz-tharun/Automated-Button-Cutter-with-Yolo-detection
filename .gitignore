@@ -1,0 +1,12 @@
+# Temporary/Log Files
+detections.csv
+
+# Python environment files
+__pycache__/
+.pytest_cache/
+venv/
+.env
+
+# Operating System files
+.DS_Store
+Thumbs.db
