@@ -21,12 +21,12 @@ The complete system requires an integrated setup of optical, computational, and 
 | Component | Role | Notes |
 | :-------: | :------: | :-------: |
 | X-Y Gantry System | Provides the motion platform for the laser. | Requires precise, low-friction linear guides for accuracy. |
-| Stepper Motors | Drive the X (longitudinal) and Y (traverse) movement of the laser module. | NEMA 17 or similar motors are suitable for small-scale applications. |
+| Stepper Motors | Drive the X (longitudinal) and Y (traverse) movement of the laser module. | Motors like NEMA 17 is suitable for small-scale applications like this. |
 | Stepper Motor Drivers | Interface the motors with the microcontroller, managing current and step pulses. | A4988 drivers was used. |
 | Arduino Board | The microcontroller responsible for low-level, real-time motor and laser control. | Used to execute the G-code-like commands (M, H, C) sent from the PC. |
 | Laser Module | The cutting tool, mounted on the gantry. | Must have a TTL/PWM input for power modulation controlled by the Arduino. |
 | Webcam / Camera | Captures the live video feed of the cutting bed. | Positioned to provide a clear view of the work area for object detection. |
-| PC / Host Machine | Runs the main Python application (Final_Button_cutter.py). | Responsible for executing the heavy computational tasks (YOLO inference and coordinate mapping). |
+| PC / Host Machine | Runs the main Python application ([Final_Button_cutter.py](./Final_Button_cutter.py)). | Responsible for executing the heavy computational tasks (YOLO inference and coordinate mapping). |
 
 <br> 
 
@@ -36,11 +36,11 @@ The fundamental challenge in this system is ensuring that the cutting tool (the 
 
 ### 1. Vision and Detection
 
-The Python application uses the Final_Button_cutter.py script to:
+The Python application uses the [Final_Button_cutter.py](./Final_Button_cutter.py) script to:
 
 Continuously capture a video frame from the camera.
 
-Run the pre-trained YOLO model (my_model.pt) to identify and locate target objects (e.g., buttons, zippers) within that frame.
+Run the pre-trained YOLO model ([My_model.pt](./my_model.pt)) to identify and locate target objects (e.g., buttons, zippers) within that frame.
 
 ### 2. Coordinate Mapping
 
@@ -62,14 +62,14 @@ The Python script establishes a serial link with the Arduino.
 
 | File Name | Description | Purpose |
 | :-------: | :------: | :-------: |
-| Final_Button_cutter.py | Main Application Script | Contains the vision pipeline, perspective transformation logic, and serial communication to manage the full, real-time cutting sequence.|
-| Arduino_laser_control.ino | Arduino Firmware (Sketch) | The embedded code that receives serial commands and translates them into physical movements for the stepper motors and laser activation. |
-| Detection_demo.py | Vision Testing Script | A standalone Python script used purely for testing the camera and YOLO model detection capabilities. |
-| my_model.pt | YOLO Trained Weights | The file containing the trained model weights for object detection. |
-| .gitignore | Git Configuration | Excludes temporary and environment-specific files (like detections.csv) from version control. |
+| [Final_Button_cutter.py](./Final_Button_cutter.py) | Main Application Script | Contains the vision pipeline, perspective transformation logic, and serial communication to manage the full, real-time cutting sequence.|
+| [Arduino_laser_control.ino](./Arduino_laser_control.ino) | Arduino Firmware (Sketch) | The embedded code that receives serial commands and translates them into physical movements for the stepper motors and laser activation. |
+| [Detection_demo.py](./Detection_demo.py) | Vision Testing Script | A standalone Python script used purely for testing the camera and YOLO model detection capabilities. |
+| [My_model.pt](./my_model.pt) | YOLO Trained Weights | The file containing the trained model weights for object detection. |
+| [.gitignore](./.gitignore) | Git Configuration | Excludes temporary and environment-specific files (like detections.csv) from version control. |
 <br>
 
-## Arduino Firmware Protocol (Arduino_laser_control.ino)
+## Arduino Firmware Protocol ([Arduino_laser_control.ino](./Arduino_laser_control.ino))
 
 The firmware implements a serial communication protocol designed to receive simple, comma-separated instructions from the Python application:
 
@@ -80,7 +80,7 @@ The firmware implements a serial communication protocol designed to receive simp
 | C | Cut Command: Activates the laser module for a predefined duration and power level to perform the cut. |
 
 ## Data & Licensing Attribution
-The detection model (my_model.pt) was trained using an Open Source Dataset. In compliance with the license, proper attribution is required for any redistribution or use of the model.
+The detection model ([My_model.pt](./my_model.pt)) was trained using an Open Source Dataset. In compliance with the license, proper attribution is required for any redistribution or use of the model.
 <br> 
 
 ### Dataset Citation
